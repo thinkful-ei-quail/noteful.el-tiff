@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CircleButton from '../CircleButton/CircleButton'
 import ApiContext from '../ApiContext'
 import { findNote, findFolder } from '../notes-helpers'
+import AddFolder from '../AddFolder'
 import './NotePageNav.css'
 
 export default class NotePageNav extends React.Component {
@@ -38,6 +39,9 @@ export default class NotePageNav extends React.Component {
             {folder.name}
           </h3>
         )}
+        <div>
+          <AddFolder />
+        </div>
       </div>
     )
   }
