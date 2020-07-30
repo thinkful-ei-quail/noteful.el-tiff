@@ -5,21 +5,11 @@ import React, {Component} from 'react';
 //export to POST /folders endpoint
 
 export default class AddFolder extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            name: {
-                value: ''
-            }
-        }
-    }
     render () {
         return (
             <form className='addFolder'>
-                <label>
                     <input type='text' placeholder='Folder Name'/>
-                    <button>Submit</button>
-                </label>
+                    <button onClick={() => console.log('hey')}>Submit</button>
             </form>
         )
     }

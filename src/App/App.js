@@ -12,31 +12,49 @@ import config from '../config';
 import './App.css';
 
 class App extends Component {
-    state = {
-        notes: [],
-        folders: []
-    };
-       
-  
-    componentDidMount() {
-        Promise.all([
-            fetch(`${config.API_ENDPOINT}/notes`),
-            fetch(`${config.API_ENDPOINT}/folders`)
-        ])
-            .then(([notesRes, foldersRes]) => {
-                if (!notesRes.ok)
-                    return notesRes.json().then(e => Promise.reject(e));
-                if (!foldersRes.ok)
-                    return foldersRes.json().then(e => Promise.reject(e));
+    constructor(props) {
+        super(props)
 
-                return Promise.all([notesRes.json(), foldersRes.json()]);
-            })
-            .then(([notes, folders]) => {
-                this.setState({notes, folders});
-            })
-            .catch(error => {
-                console.error({error});
-            });
+    this.state = {
+        notes: [],
+        folders: [],
+        newFolder: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this)
+       }
+  
+    // componentDidMount() {
+    //     Promise.all([
+    //         fetch(`${config.API_ENDPOINT}/notes`),
+    //         fetch(`${config.API_ENDPOINT}/folders`)
+    //     ])
+    //         .then(([notesRes, foldersRes]) => {
+    //             if (!notesRes.ok)
+    //                 return notesRes.json().then(e => Promise.reject(e));
+    //             if (!foldersRes.ok)
+    //                 return foldersRes.json().then(e => Promise.reject(e));
+
+    //             return Promise.all([notesRes.json(), foldersRes.json()]);
+    //         })
+    //         .then(([notes, folders]) => {
+    //             this.setState({notes, folders});
+    //         })
+    //         .catch(error => {
+    //             console.error({error});
+    //         });
+    // }
+
+    handleChange(event) {
+        console.log('event')
+        this.setState({newFolder: event.target.value})
+
+    }
+
+    handleFolderSubmit(event){
+        event.preventDefault()
+        console.log(event)
+        // const { newFolder } = this.state
     }
 
     handleDeleteNote = noteId => {

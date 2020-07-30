@@ -15,7 +15,6 @@ export default class AddNote extends React.Component{
                         <option>lfkdg</option>
                     </select>
                     <button>Submit</button>
-                    <button>Cancel</button>
                 </div>
             </form>
         )
