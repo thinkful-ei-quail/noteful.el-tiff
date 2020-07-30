@@ -43,10 +43,10 @@ class App extends Component {
                 console.error({error});
             });
     }
-    
+
+     // why isn't this working in addNote
     handleChange(event) {
         const inputValue = event.target.value;
-        console.log(inputValue)
         return inputValue
     }
 

@@ -8,12 +8,15 @@ import ApiContext from './ApiContext'
 export default class AddFolder extends Component {
 
     render () {
-  
         return (
+            <ApiContext.Consumer> 
+                {({handleChange}) => (
             <form className='addFolder'>
-                <input onChange={this.handleChange} type='text' placeholder='Folder Name'/>
+                <input onChange={handleChange} type='text' placeholder='Folder Name'/>
                 <button>Submit</button>
-            </form>
+            </form> 
+           )}
+            </ApiContext.Consumer>
         )
     }
 }
