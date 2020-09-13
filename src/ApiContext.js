@@ -2,8 +2,7 @@ import React from 'react'
 
 export default React.createContext({
   notes: [],
-  folderTitle: '',
-  foldersList: [],
+  folders: [],
   addFolder: () => {},
   addNote: () => {},
   deleteNote: () => {},

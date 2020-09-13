@@ -49,6 +49,14 @@ class App extends Component {
         });
     };
 
+    addFolder = (newFolder) => {
+      this.setState({ folders: [...this.state.folders, newFolder] })
+    }
+
+    addNote = (newNote) => {
+        this.setState({ notes: [...this.state.notes, newNote] })
+      }
+
     renderNavRoutes() {
         return (
             <>
@@ -85,16 +93,12 @@ class App extends Component {
         );
     }
 
-    AddFolder = (newFolder) => {
-      this.setState({ folders: [...this.state.folders, newFolder] })
-    }
-
     render() {
         const value = {
             notes: this.state.notes,
             folders: this.state.folders,
             deleteNote: this.handleDeleteNote,
-            AddFolder: this.AddFolder,
+            addFolder: this.addFolder,
             addNote: this.addNote
         };
         return (
