@@ -5,8 +5,8 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import AddFolder from '../AddFolder';
-import AddNote from '../AddNote'
+import AddFolder from '../AddFolder/AddFolder';
+import AddNote from '../AddNote/AddNote';
 import ApiContext from '../ApiContext';
 import config from '../config';
 import './App.css';
@@ -20,8 +20,7 @@ class App extends Component {
         folders: [],
     };
 
-    this.handleChange = this.handleChange.bind(this)
-       }
+}
   
     componentDidMount() {
         Promise.all([
@@ -42,12 +41,6 @@ class App extends Component {
             .catch(error => {
                 console.error({error});
             });
-    }
-
-     // why isn't this working in addNote
-    handleChange(event) {
-        const inputValue = event.target.value;
-        return inputValue
     }
 
     handleDeleteNote = noteId => {
@@ -92,11 +85,17 @@ class App extends Component {
         );
     }
 
+    AddFolder = (newFolder) => {
+      this.setState({ folders: [...this.state.folders, newFolder] })
+    }
+
     render() {
         const value = {
             notes: this.state.notes,
             folders: this.state.folders,
-            deleteNote: this.handleDeleteNote
+            deleteNote: this.handleDeleteNote,
+            AddFolder: this.AddFolder,
+            addNote: this.addNote
         };
         return (
             <ApiContext.Provider value={value}>

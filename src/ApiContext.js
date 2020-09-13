@@ -2,9 +2,9 @@ import React from 'react'
 
 export default React.createContext({
   notes: [],
-  folders: [],
+  folderTitle: '',
+  foldersList: [],
   addFolder: () => {},
   addNote: () => {},
   deleteNote: () => {},
-  handleChange: () => {}
 })
