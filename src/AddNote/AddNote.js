@@ -1,6 +1,5 @@
 import React from 'react';
 import ApiContext from '../ApiContext';
-// import PropTypes from 'prop-types'
 import config from '../config';
 
 export default class AddNote extends React.Component{
@@ -102,7 +101,3 @@ export default class AddNote extends React.Component{
         )
     }
 }
-
-// AddNote.Note.propTypes = {
-//   name: PropTypes.string.isRequired
-// }

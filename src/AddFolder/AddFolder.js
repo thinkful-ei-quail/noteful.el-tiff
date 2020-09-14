@@ -1,6 +1,7 @@
 import React from 'react';
 import ApiContext from '../ApiContext';
 import config from '../config';
+import propTypes from 'prop-types';
 
 export default class AddFolder extends React.Component {
 
@@ -38,4 +39,9 @@ export default class AddFolder extends React.Component {
             </form>
         )
     }
+}
+
+AddFolder.propTypes = {
+  name: propTypes.string.isRequired,
+  id: propTypes.string.isRequired
 }
