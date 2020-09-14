@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import ApiContext from '../ApiContext';
+// import PropTypes from 'prop-types'
 import config from '../config';
 
 export default class AddNote extends React.Component{
@@ -8,36 +9,37 @@ export default class AddNote extends React.Component{
     constructor() {
     super()
     this.state={
-      noteTitle: '',
-      content: '',
-      folder: ''
+      name: { value: '', touched: false },
+      content: { value: '', touched: false },
+      folder: { value: '' }
     }
   }
 
-  updateTitle = (noteTitle) => {
-    this.setState({ noteTitle })
+  updateName = (name) => {
+    this.setState({ name: { value: name, touched: true } })
   }
 
   updateContent = (content) => {
-    this.setState({ content })
+    this.setState({ content: { value: content, touched: true } })
   }
 
-  updateFolder = (folder) => {
-    this.setState({ folder })
+  updateFolder = (id) => {
+    this.setState({ folder: { value: id, touched: true } })
   }
 
   renderFolders = () => {
     return this.context.folders.map((folder) => {
       return (
         <option key={folder.id} value={folder.id}>
-          {folder.folderTitle}
+          {folder.name}
         </option>
       )
     })
   }
 
-  validateNoteTitle () {
-    const value = this.state.noteTitle
+  validateNoteName () {
+    const { value, touched } = this.state.name
+    return typeof value === 'string' & value.length > 0 && touched
   }
 
   validateFolder = () => {
@@ -46,22 +48,24 @@ export default class AddNote extends React.Component{
 
   handleSubmit = (e) => {
       e.preventDefault()
-      const { noteTitle, content, folder } = this.state
-      fetch(`${config.API_ENDPOINT}/notes`, {
-          method: 'POST',
-          headers: {
-              'content-type': 'application/json',
-          },
-          body: JSON.stringify({
-              title: noteTitle.value,
-              content: content.value,
-              folder: folder.value,
-              modified: new Date(Date.now())
-            })
-      })
+      const { name, content, folder } = this.state
+      const options =  {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: name.value,
+            content: content.value,
+            folderId: folder.value,
+            modified: new Date(Date.now())
+          })
+    }
+      fetch(`${config.API_ENDPOINT}/notes`, options)
           .then(res => {
-              if (!res.ok)
+              if (!res.ok) {
                   return res.json().then(e => Promise.reject(e))
+              }
               return res.json()
           })
           .then(res => this.context.addNote(res))
@@ -71,22 +75,34 @@ export default class AddNote extends React.Component{
           })
   }
 
-    render(){
+    render() {
         return (
             <form className='addNote' onSubmit={(e) => this.handleSubmit(e)}>
-                <input type='text' placeholder='Add note title'onChange={(e) => this.updateTitle(e.target.value)}/>
+                <input name='name' type='text' placeholder='Add note title'onChange={(e) => this.updateName(e.target.value)} required/>
+                {this.state.name.touched && !this.validateNoteName()
+                ? <p>Name required</p> 
+                : null
+                }
                 <br />
                 <textarea placeholder='Add description' onChange={(e) => this.updateContent(e.target.value)}/>
                 <div>
-                    <select onChange={(e) => this.updateFolder(e.target.value)}>
+                    <select name='folder' onChange={(e) => this.updateFolder(e.target.value)}>
                         <option value=''>
                             Pick a destination
-                            {this.renderFolders}
                         </option>
+                        {this.renderFolders()}
                     </select>
-                    <button type='submit'>Submit</button>
+                    {this.state.folder.touched && !this.validateFolder()
+                    ? <p>Folder required</p>
+                    : null
+                    }
+                    <button disabled={!this.validateNoteName || !this.validateFolder} type='submit'>Submit</button>
                 </div>
             </form>
         )
     }
 }
+
+// AddNote.Note.propTypes = {
+//   name: PropTypes.string.isRequired
+// }
