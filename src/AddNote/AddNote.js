@@ -85,7 +85,7 @@ export default class AddNote extends React.Component{
                 <br />
                 <textarea placeholder='Add description' onChange={(e) => this.updateContent(e.target.value)}/>
                 <div>
-                    <select name='folder' onChange={(e) => this.updateFolder(e.target.value)}>
+                    <select name='folder' onChange={(e) => this.updateFolder(e.target.value)} required>
                         <option value=''>
                             Pick a destination
                         </option>
