@@ -14,15 +14,10 @@ import config from '../config';
 import './App.css';
 
 class App extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
+        state = {
             notes: [],
             folders: [],
         };
-
-    }
 
     componentDidMount() {
         Promise.all([
