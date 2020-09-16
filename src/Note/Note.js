@@ -4,11 +4,14 @@ import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ApiContext from '../ApiContext'
 import config from '../config'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import './Note.css'
 
 export default class Note extends React.Component {
   static defaultProps ={
+    match: {
+      params: {}
+    },
     onDeleteNote: () => {},
   }
   static contextType = ApiContext;
@@ -70,8 +73,8 @@ export default class Note extends React.Component {
   }
 }
 
-Note.propTypes = {
-  name: PropTypes.string.isRequired,
-  id: PropTypes.number,
-  modified: PropTypes.string
-}
+// Note.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   id: PropTypes.number,
+//   modified: PropTypes.string
+// }
